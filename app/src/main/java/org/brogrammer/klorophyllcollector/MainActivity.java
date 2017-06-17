@@ -1,6 +1,7 @@
 package org.brogrammer.klorophyllcollector;
 
 import android.graphics.Bitmap;
+import android.icu.text.DateFormat;
 import android.media.Image;
 import android.media.ImageReader;
 import android.os.Bundle;
@@ -13,10 +14,15 @@ import android.widget.TextView;
 import org.brogrammer.klorophyllcollector.util.CameraHandler;
 import org.brogrammer.klorophyllcollector.util.ImagePreprocessor;
 
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity implements ImageReader.OnImageAvailableListener
 {
+    private final static int INTERVAL = 1000 * 60 * 15; // 15 Minutes
+
     private CameraHandler cameraHandler;
     private Handler backgroundHandler;
+    private Handler takePictureHandler;
     private HandlerThread backgroundThread;
     private ImagePreprocessor preprocessor;
 
@@ -40,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements ImageReader.OnIma
         backgroundThread.start();
         backgroundHandler = new Handler(backgroundThread.getLooper());
         backgroundHandler.post(initializeOnBackground);
+        takePictureHandler = new Handler();
     }
 
     private Runnable initializeOnBackground = new Runnable()
@@ -49,6 +56,26 @@ public class MainActivity extends AppCompatActivity implements ImageReader.OnIma
         {
             cameraHandler = CameraHandler.getInstance();
             cameraHandler.initializeCamera(MainActivity.this, backgroundHandler, MainActivity.this);
+        }
+    };
+
+    private void startCameraTask()
+    {
+        cameraTask.run();
+    }
+
+    private void stopCameraTask()
+    {
+        takePictureHandler.removeCallbacks(cameraTask);
+    }
+
+    private Runnable cameraTask = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            cameraHandler.takePicture();
+            takePictureHandler.postDelayed(cameraTask, INTERVAL);
         }
     };
 
@@ -67,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements ImageReader.OnIma
             public void run()
             {
                 imageView.setImageBitmap(bitmap);
+                textView.setText(DateFormat.getDateTimeInstance().format(new Date()));
             }
         });
     }
