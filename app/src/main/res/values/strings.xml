@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Klorophyll Collector</string>
+    <string name="imageview">imageview content description</string>
+    <string name="example_timestamp">08/20/2017 at 2:15 AM</string>
 </resources>
