@@ -27,8 +27,6 @@ import junit.framework.Assert;
  */
 public class ImagePreprocessor
 {
-    private static final boolean SAVE_PREVIEW_BITMAP = false;
-
     private Bitmap rgbFrameBitmap;
     private Bitmap croppedBitmap;
 
@@ -60,10 +58,6 @@ public class ImagePreprocessor
 
         image.close();
 
-        // For debugging
-        if (SAVE_PREVIEW_BITMAP) {
-            ImageUtils.saveBitmap(croppedBitmap);
-        }
         return croppedBitmap;
     }
 }

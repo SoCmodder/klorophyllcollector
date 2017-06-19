@@ -11,8 +11,8 @@
         android:contentDescription="@string/imageview"
         android:src="@color/colorPrimary"
         android:layout_alignParentTop="true"
-        android:layout_width="640dip"
-        android:layout_height="480dip"/>
+        android:layout_width="200dip"
+        android:layout_height="100dip"/>
 
     <TextView
         android:id="@+id/timestamp"

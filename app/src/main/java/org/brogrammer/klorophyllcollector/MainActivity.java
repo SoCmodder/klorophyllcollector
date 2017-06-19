@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import org.brogrammer.klorophyllcollector.util.CameraHandler;
 import org.brogrammer.klorophyllcollector.util.ImagePreprocessor;
+import org.brogrammer.klorophyllcollector.util.ImageUtils;
 
 import java.util.Date;
 
@@ -37,6 +38,20 @@ public class MainActivity extends AppCompatActivity implements ImageReader.OnIma
         textView = (TextView) findViewById(R.id.timestamp);
 
         setup();
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        startCameraTask();
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        stopCameraTask();
     }
 
     private void setup()
@@ -93,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements ImageReader.OnIma
             @Override
             public void run()
             {
+                ImageUtils.saveBitmap(bitmap);
                 imageView.setImageBitmap(bitmap);
                 textView.setText(DateFormat.getDateTimeInstance().format(new Date()));
             }
