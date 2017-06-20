@@ -10,9 +10,9 @@
         android:id="@+id/imageview"
         android:contentDescription="@string/imageview"
         android:src="@color/colorPrimary"
-        android:layout_alignParentTop="true"
-        android:layout_width="200dip"
-        android:layout_height="100dip"/>
+        android:layout_centerVertical="true"
+        android:layout_width="600dip"
+        android:layout_height="300dip"/>
 
     <TextView
         android:id="@+id/timestamp"

@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements ImageReader.OnIma
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (shouldShowRequestPermissionRationale(CAMERA) ||
                     shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE)) {
-                Toast.makeText(this, "Camera AND storage permission are required for this demo",
+                Toast.makeText(this, "Camera AND storage permission are required for this to run",
                         Toast.LENGTH_LONG).show();
             }
             requestPermissions(new String[]{CAMERA, WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST);
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements ImageReader.OnIma
         @Override
         public void run()
         {
-            preprocessor = new ImagePreprocessor(CameraHandler.IMAGE_WIDTH, CameraHandler.IMAGE_HEIGHT, 240);
+            preprocessor = new ImagePreprocessor(CameraHandler.IMAGE_WIDTH, CameraHandler.IMAGE_HEIGHT, 480);
             cameraHandler.initializeCamera(MainActivity.this, backgroundHandler, MainActivity.this);
         }
     };
